@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>ToDoList</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="window">
+            <form id="taskForm">
+                <input type="text" name="task" id="task" placeholder="Enter your task here" required>
+                <button type="submit">Send</button>
+            </form>
+
+            <ul id="taskList">
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const taskForm = document.getElementById("taskForm");
+            const taskList = document.getElementById("taskList");
+
+            taskForm.addEventListener("submit", function (event) {
+                event.preventDefault(); 
+
+                const taskInput = document.getElementById("task");
+                const taskText = taskInput.value.trim();
+
+                if (taskText !== "") {
+                    addTask(taskText);
+                    taskInput.value = ""; 
+                }
+            });
+
+            function addTask(taskText) {
+                const li = document.createElement("li");
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.addEventListener("click", function () {
+                    li.classList.toggle("completed");
+                });
+
+                li.appendChild(checkbox);
+                li.appendChild(document.createTextNode(taskText));
+                taskList.appendChild(li);
+            }
+        });
+    </script>
+</body>
+
+</html>
