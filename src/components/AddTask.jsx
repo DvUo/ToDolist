@@ -1,24 +1,21 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Modal from "react-modal";
-import Card from "./Card"; // Asegúrate de ajustar la ruta si es necesario
+import {Card, Focus} from "./"; 
 import "./AddTask.css";
-
-Modal.setAppElement("#root");
 
 export const AddTask = () => {
   const [task, setTask] = useState("");
   const [date, setDate] = useState(new Date());
   const [status, setStatus] = useState("To do");
   const [description, setDescription] = useState("");
+  const [tasks, setTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tasks, setTasks] = useState([]); // Almacena las tareas
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = { task, date, status, description };
-    setTasks([...tasks, newTask]); // Añadir nueva tarea a la lista
+    setTasks([...tasks, newTask]); 
     resetForm();
     setIsModalOpen(false);
   };
@@ -41,26 +38,7 @@ export const AddTask = () => {
         Add Task
       </button>
 
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        style={{
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.75)",
-          },
-          content: {
-            backgroundColor: "#333",
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            width: "500px",
-            padding: "20px",
-          },
-        }}
-      >
+      <Focus isOpen={isModalOpen} onClose={()=>setIsModalOpen(false)}>
         <form className="add-form" onSubmit={handleSubmit}>
           <fieldset>
             <legend>Add a New Task</legend>
@@ -106,7 +84,7 @@ export const AddTask = () => {
             </button>
           </fieldset>
         </form>
-      </Modal>
+      </Focus>
 
       <div className="task-cards">
         <Card title="To do" tasks={todoTasks} />

@@ -3,7 +3,9 @@
   justify-content: center;
   align-items: center;
 }
-
+body{
+  background-color: #3c3c3c;
+}
 /* Contenido del modal */
 .ReactModal__Content {
  /* Fondo oscuro del modal */

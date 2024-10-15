@@ -1,14 +1,14 @@
 import "./Card.css"; // Asegúrate de ajustar la ruta si es necesario
 
-const Card = ({ tasks, title }) => {
+export const Card = ({ tasks, title }) => {
   return (
-    <div className="card">
+    <div className="card `${ads}`">  //añadir tipo con variable pasada por props
       <h3>{title}</h3>
       <ul>
         {tasks.length > 0 ? (
           tasks.map((task, index) => (
             <li key={index}>
-              <strong>{task.task}</strong> - {task.date.toLocaleDateString()}
+              <h2>{task.task}</h2> - {task.date.toLocaleDateString()}
             </li>
           ))
         ) : (
@@ -19,4 +19,4 @@ const Card = ({ tasks, title }) => {
   );
 };
 
-export default Card;
+
