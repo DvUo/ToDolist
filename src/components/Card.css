@@ -4,25 +4,99 @@
     margin-top: 20px;
 }
 
-.card {
+.cards {
     background-color: #2b2b2b;
     color: #f0f0f0;
     padding: 20px;
     border-radius: 8px;
     width: 30%;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+    margin: 0 20px;
 }
 
-.card h3 {
+.cards h3 {
     text-align: center;
     margin-bottom: 10px;
+    transition: .5s ease-in-out;
+}
+.cards h3:hover{
+    transform: scale(1.05);
 }
 
-.card ul {
+.cards ul {
     list-style-type: none;
     padding: 0;
 }
 
-.card li {
-    margin-bottom: 10px;
+.cards.To.do h3 {
+    background-color:#700;
+    border-radius: 10px;
+}
+
+.cards.Done h3{
+    background-color:#070;
+    border-radius: 10px;
+    
+}
+
+.cards.Doing h3{
+    background-color:#a70;
+    border-radius: 10px;
+    
+}
+
+button i {
+    font-size: 20px;
+    position: absolute;
+    left:90%;
+    animation: moveArrow 2s infinite ease-in-out;
+}
+
+
+.date{
+    text-align: center;
+}
+.li-task{
+    border:1px solid #bbb;
+    border-radius: 10px;
+    padding: 20px 20px;
+    margin: 10px 0;
+}
+.btn.btn-task{
+    background-color: transparent;
+    font-size: 18px;
+    position: relative;
+
+}
+
+.btn.btn-task:hover {
+    background-color: transparent;
+    animation: borderFlow 2s infinite ease-in-out;
+    border: 1px solid transparent;
+    transition: background-color 0.3s ease;
+}
+
+@keyframes borderFlow {
+    0%, 100% {
+        border-color: transparent;
+    }
+    25% {
+        border-bottom-color: #888;
+        border-left-color: #888;
+    }
+    50% {
+        border-color: #888;
+    }
+    75% {
+        border-top-color: #888;
+        border-right-color: #888;
+    }
+}
+
+@keyframes moveArrow{
+    0%,100% {transform: translateY(-10px);}
+    50% {
+         transform: translateY(10px);
+    }
+
 }

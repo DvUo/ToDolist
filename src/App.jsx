@@ -1,6 +1,5 @@
 import { AddTask } from './components/AddTask'
-import { Card } from './components/Card'
-
+import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
 
 

@@ -1,39 +1,26 @@
-.ReactModal__Overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+*{
+  font-family: sans-serif;
 }
+
 body{
   background-color: #3c3c3c;
 }
-/* Contenido del modal */
-.ReactModal__Content {
- /* Fondo oscuro del modal */
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  max-width: 90%; /* Responsivo */
-  color: #f0f0f0; /* Texto claro para contraste */
-  position: relative;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Sombra suave */
+
+.button-container {
+  margin: 20px auto;
+  height: 40px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
-/* Botón para cerrar el modal */
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #f0f0f0;
-  cursor: pointer;
-}
-
-/* Botón general */
-button {
-  background-color: #007bff;
-  color: #fff;
+.btn {
+  margin: 0 auto;
+  width: 100%;
+  background-color: #036;
+  color: #ddd;
   border: none;
   padding: 10px 15px;
   font-size: 16px;
@@ -42,75 +29,77 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #0056b3; /* Hover oscuro */
+.btn:hover {
+  background-color: #0056b3; 
+  color:#ddd;
 }
 
-/* Inputs y select en el modal */
+.btn-add{
+  width: 80%;
+}
+.labels-form{
+  font-size: large;
+  font-weight: bold;
+  display: block;
+
+}
+
 input[type="text"], textarea, select {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0 20px;
-  background-color: #3c3c3c; /* Fondo oscuro para los campos */
+  padding: 10px 0 10px 5px;
+  margin: 10px 0 20px ;
+  background-color: #3c3c3c; 
   border: none;
   border-radius: 4px;
-  color: #f0f0f0; /* Texto claro */
+  color: #f0f0f0; 
   font-size: 16px;
 }
 
 input[type="text"]::placeholder,
 textarea::placeholder {
-  color: #ccc; /* Color del placeholder */
+  color: #ccc;
 }
 
 input[type="text"]:focus, textarea:focus, select:focus {
   outline: none;
-  border: 2px solid #007bff; /* Borde en foco */
+  border: 2px solid #007bff; 
+
 }
 
-/* Estilo para el textarea */
 textarea {
-  resize: vertical;
-  min-height: 80px;
+  resize: none;
+  min-height: 130px;
 }
 
-/* Etiquetas del formulario */
-label {
-  font-size: 14px;
-  margin-bottom: 5px;
-  display: block;
+.offcanvas {
+  background-color: #1e1e1e;
   color: #f0f0f0;
 }
 
-/* Leyenda del fieldset */
-legend {
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffffff;
-  margin-bottom: 10px;
+.offcanvas-header {
+  border-bottom: 1px solid #444;
 }
 
-/* Personalización del select */
+.offcanvas-title {
+  color: #fff;
+}
+
+.offcanvas-body {
+  background-color: #282828; 
+  color: #ddd;
+}
+
+.offcanvas-close {
+  color: #f0f0f0;
+}
+
 select {
-  appearance: none; /* Eliminamos el estilo por defecto del select */
+  appearance: none; 
   background-color: #3c3c3c;
   color: #f0f0f0;
   padding: 10px;
   border-radius: 4px;
 }
 
-/* Botón dentro del modal */
-button.btn.btn-block {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  background-color: #4caf50; /* Color verde */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
-button.btn.btn-block:hover {
-  background-color: #388e3c; /* Hover verde más oscuro */
-}
+ 
