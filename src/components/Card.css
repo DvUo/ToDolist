@@ -2,24 +2,32 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 .cards {
-    background-color: #2b2b2b;
+    position:relative;
     color: #f0f0f0;
     padding: 20px;
     border-radius: 8px;
-    width: 30%;
+    width: calc(33.33% - 40px);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
-    margin: 0 20px;
+    margin: 0 20px 20px;
+    transition: all 0.3s ease;
+    background: #0008; 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
 }
+
 
 .cards h3 {
     text-align: center;
     margin-bottom: 10px;
     transition: .5s ease-in-out;
+    padding: 10px;
 }
-.cards h3:hover{
+
+.cards h3:hover {
     transform: scale(1.05);
 }
 
@@ -29,74 +37,180 @@
 }
 
 .cards.To.do h3 {
-    background-color:#700;
+    background-color: #700;
     border-radius: 10px;
 }
 
-.cards.Done h3{
-    background-color:#070;
+.cards.Done h3 {
+    background-color: #070;
     border-radius: 10px;
-    
 }
 
-.cards.Doing h3{
-    background-color:#a70;
+.cards.Doing h3 {
+    background-color: #a70;
     border-radius: 10px;
-    
 }
-
-button i {
+.fas.fa-star{
+    color:#ff0;
     font-size: 20px;
     position: absolute;
-    left:90%;
-    animation: moveArrow 2s infinite ease-in-out;
+    left: 10px;
+    top: 10px;
+    animation: pulsePencil 1s infinite ease-in-out;
+}
+.fas.fa-pencil-alt{
+    font-size: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    animation: pulsePencil 1s infinite ease-in-out;
 }
 
-
-.date{
+.date {
     text-align: center;
 }
-.li-task{
-    border:1px solid #bbb;
+
+.li-task {  
     border-radius: 10px;
-    padding: 20px 20px;
     margin: 10px 0;
 }
-.btn.btn-task{
-    background-color: transparent;
-    font-size: 18px;
+
+.cards.Doing .li-task{
+    border: 1px solid #a70;
+    animation: borderFlowDoing 2s infinite ease-in-out;
+}
+.cards.To.do .li-task{
+    border: 1px solid #700;
+    animation: borderFlowToDo 2s infinite ease-in-out;
+}
+.cards.Done .li-task{
+    border: 1px solid #070;
+    animation: borderFlowDone 2s infinite ease-in-out;
     position: relative;
+    overflow: hidden;
 
 }
-
-.btn.btn-task:hover {
-    background-color: transparent;
-    animation: borderFlow 2s infinite ease-in-out;
+.cards.Doing .li-task:hover{
+    animation: borderFlowDoing 2s infinite ease-in-out;
+    border: 1px solid transparent;
+    transition: background-color 0.3s ease;
+}
+.cards.To.do .li-task:hover{
+    animation: borderFlowToDo 2s infinite ease-in-out;
+    border: 1px solid transparent;
+    transition: background-color 0.3s ease;
+}
+.cards.Done .li-task:hover{ 
+    animation: taskCompleted .5s ease-in-out forwards;
     border: 1px solid transparent;
     transition: background-color 0.3s ease;
 }
 
-@keyframes borderFlow {
-    0%, 100% {
-        border-color: transparent;
+.btn.btn-task {
+    background-color: transparent;
+    padding: 20px;
+    font-size: 18px;
+    position: relative;
+    width: 100%;
+    text-align: left;
+    padding-right: 30px;
+    text-align: center;
+}
+
+.btn.btn-task:hover {
+    background-color: transparent;
+
+}
+@keyframes taskCompleted {
+    0% {
+        background-color: transparent;
     }
     25% {
-        border-bottom-color: #888;
-        border-left-color: #888;
+        background-color: rgba(0, 119, 0, 0.25);
     }
     50% {
-        border-color: #888;
+        background-color: rgba(0, 119, 0, 0.5);
     }
     75% {
-        border-top-color: #888;
-        border-right-color: #888;
+        background-color: rgba(0, 119, 0, 0.75);
+    }
+    100% {
+        background-color: #070;
     }
 }
 
-@keyframes moveArrow{
-    0%,100% {transform: translateY(-10px);}
-    50% {
-         transform: translateY(10px);
+@keyframes borderFlowDoing {
+    0%, 100% { border-color: transparent; }
+    25% { border-bottom-color: #a70; border-left-color: #a70; }
+    50% { border-left-color: #a70; border-right-color: #a70; }
+    75% { border-top-color: #a70; border-right-color: #a70; }
+}
+@keyframes borderFlowToDo {
+    0%, 100% { border-color: transparent; }
+    25% { border-bottom-color: #700; border-left-color: #700; }
+    50% { border-left-color: #700; border-right-color: #700; }
+    75% { border-top-color: #700; border-right-color: #700; }
+}
+@keyframes borderFlowDone {
+    0%, 100% { border-color: transparent; }
+    25% { border-bottom-color: #070;  }
+    50% { border-left-color: #070; border-right-color: #070;}
+    75% { border-top-color: #070; border-right-color: #070; }
+}
+
+
+
+@keyframes pulsePencil {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1200px) {
+    .cards {
+        width: calc(50% - 40px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .task-cards {
+        flex-direction: column;
+        align-items: center;
     }
 
+    .cards {
+        width: calc(100% - 40px);
+        margin: 0 20px 20px;
+    }
+
+    .btn.btn-task {
+        font-size: 16px;
+    }
+
+    button i {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .cards {
+        padding: 15px;
+        margin: 0 10px 15px;
+    }
+
+    .cards h3 {
+        font-size: 18px;
+    }
+
+    .li-task {
+        padding: 15px;
+    }
+
+    .btn.btn-task {
+        font-size: 14px;
+    }
+
+    button i {
+        font-size: 16px;
+    }
 }

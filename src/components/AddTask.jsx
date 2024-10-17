@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Card, OffCanvasFocus } from "./";
+import { getTasks, createTask, updateTask, deleteTask } from '../helpers/dataMockapi';  // Importar los métodos del helper
 import "./AddTask.css";
 
 export const AddTask = () => {
@@ -14,37 +15,58 @@ export const AddTask = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
 
-  const handleSubmit = (e) => {
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const fetchedTasks = await getTasks();
+      setTasks(fetchedTasks);
+    };
+    fetchTasks();
+  }, []);
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newTask = { task, date, status, description };
-    
+
+    const newTask = {
+      task,
+      daytime: Math.floor(date.getTime() / 1000), 
+      status,
+      description,
+    };
+
     if (isEditing && taskToEdit) {
-      const updatedTasks = tasks.map((t) => (t === taskToEdit ? newTask : t));
+      await updateTask(taskToEdit.id, newTask);
+      const updatedTasks = tasks.map((t) =>
+        t.id === taskToEdit.id ? { ...newTask, id: taskToEdit.id } : t
+      );
       setTasks(updatedTasks);
       setIsEditing(false);
     } else {
-      setTasks([...tasks, newTask]);
+      const createdTask = await createTask(newTask);
+      setTasks([...tasks, { ...createdTask, daytime: createdTask.daytime }]);
     }
 
     resetForm();
     setIsModalOpen(false);
   };
-  
-  const handleDelete = () => {
-    const updatedTasks = tasks.filter((t) => t !== taskToEdit);
+
+  const handleDelete = async () => {
+    await deleteTask(taskToEdit.id);
+    const updatedTasks = tasks.filter((t) => t.id !== taskToEdit.id);
     setTasks(updatedTasks);
     resetForm();
     setIsModalOpen(false);
-  }
+  };
 
   const handleEdit = (task) => {
     setTask(task.task);
-    setDate(new Date(task.date));
+    setDate(new Date(task.daytime * 1000));
     setStatus(task.status);
     setDescription(task.description);
     setIsEditing(true);
     setTaskToEdit(task);
-    setIsModalOpen(true);  
+    setIsModalOpen(true);
   };
 
   const resetForm = () => {
@@ -78,7 +100,7 @@ export const AddTask = () => {
         onOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
-        <form className="add-form" onSubmit={handleSubmit}>
+        <form className="add-form" onSubmit={(handleSubmit)}>
           <label className="labels-form" htmlFor="task">
             Task
           </label>
@@ -98,8 +120,10 @@ export const AddTask = () => {
           </label>
           <DatePicker
             selected={date}
-            onChange={(date) => setDate(date)}
+            onChange={(date) => setDate(date)} 
             dateFormat="dd/MM/yyyy"
+            timeFormat="HH:mm"
+            timeIntervals={15}
           />
 
           <label className="labels-form" htmlFor="state">
@@ -133,10 +157,14 @@ export const AddTask = () => {
           </button>
 
           {isEditing ? (
-            <button type="submit" onClick={handleDelete} className="btn btn-danger">Delete</button>
-          ) : (
-            ""
-          )}
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="btn btn-danger"
+            >
+              Delete
+            </button>
+          ) : null}
         </form>
       </OffCanvasFocus>
 

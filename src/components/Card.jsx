@@ -1,6 +1,8 @@
 import "./Card.css"; 
 
 export const Card = ({ tasks, title, onEdit }) => {
+
+  
   return (
     <div className={`cards ${title}`}>
       <h3>{title}</h3>
@@ -8,10 +10,13 @@ export const Card = ({ tasks, title, onEdit }) => {
         {tasks.length > 0 ? (
           tasks.map((task, index) => (
             <li className="li-task" key={index}>
-              <p className="date">{task.date.toLocaleDateString()}</p>
-              <button className="btn btn-task" onClick={()=> onEdit(task)}> 
+              <button className="btn btn-task" onClick={() => onEdit(task)}>
+                <p className="date">
+                  {new Date(task.daytime * 1000).toLocaleDateString()}
+                </p>
+                <i className="fas fa-pencil-alt"></i>
+                {title === "Done" ? <i className="fas fa-star"></i> : ""}
                 {task.task}
-                <i class="fas fa-chevron-down"></i>
               </button>
             </li>
           ))
