@@ -20,23 +20,39 @@ body {
 .btn {
   margin: 0 auto;
   width: 100%;
-  background-color: #036;
+  background-color: #049;
   color: #ddd;
   border: none;
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  border-radius: 8px;
+}
+.btn-add{
+   background-color: transparent;
+  width: 90%;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 8px;
+  background-size: 300% 300%;
+  background-image: linear-gradient(
+    45deg,
+    #32a7dd 0%,
+    #b93d67df 50%,
+    #32a7dd 100%
+  );
+}
+
+.btn-add:hover{
+  transition:  0.3s ease-in-out;
+  transform:scale(1.05);
+  animation: addtaskbtn 3s infinite ease-in-out;
+
 }
 
 .btn:hover {
   background-color: #0056b3; 
   color:#ddd;
-}
-
-.btn-add {
-  width: 80%;
 }
 
 .btn.btn-danger {
@@ -115,8 +131,7 @@ select {
   padding: 10px;
   border-radius: 4px;
 }
-
-@keyframes dangerPulse {
+@keyframes dangerPulse{
   0% {
     box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
   }
@@ -125,6 +140,18 @@ select {
   }
   100% {
     box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+
+@keyframes addtaskbtn {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
   }
 }
 
