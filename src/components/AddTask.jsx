@@ -100,7 +100,7 @@ export const AddTask = () => {
         onOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
-        <form className="add-form" onSubmit={(handleSubmit)}>
+        <form id="form-tasks" className="add-form" onSubmit={(handleSubmit)}>
           <label className="labels-form" htmlFor="title">
             Title Task
           </label>
@@ -115,7 +115,7 @@ export const AddTask = () => {
             required
           />
 
-          <label className="labels-form" htmlFor="day-time">
+          <label className="labels-form">
             Day & Time
           </label>
           <DatePicker
