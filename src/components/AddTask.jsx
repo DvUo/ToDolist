@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Card, OffCanvasFocus } from "./";
-import { getTasks, createTask, updateTask, deleteTask } from '../helpers/dataMockapi';  // Importar los métodos del helper
+import { getTasks, createTask, updateTask, deleteTask } from '../helpers/dataMockapi'; 
 import "./AddTask.css";
 
 export const AddTask = () => {
-  const [task, setTask] = useState("");
+  const [title, setTitle] = useState("");
   const [date, setDate] = useState(new Date());
   const [status, setStatus] = useState("To do");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(" ");
   const [tasks, setTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -29,14 +29,14 @@ export const AddTask = () => {
     e.preventDefault();
 
     const newTask = {
-      task,
-      daytime: Math.floor(date.getTime() / 1000), 
+      title: title,
+      daytime: date.toISOString().split('T')[0], 
       status,
       description,
     };
 
     if (isEditing && taskToEdit) {
-      await updateTask(taskToEdit.id, newTask);
+      await updateTask(taskToEdit, newTask);
       const updatedTasks = tasks.map((t) =>
         t.id === taskToEdit.id ? { ...newTask, id: taskToEdit.id } : t
       );
@@ -52,7 +52,7 @@ export const AddTask = () => {
   };
 
   const handleDelete = async () => {
-    await deleteTask(taskToEdit.id);
+    await deleteTask(taskToEdit);
     const updatedTasks = tasks.filter((t) => t.id !== taskToEdit.id);
     setTasks(updatedTasks);
     resetForm();
@@ -60,8 +60,8 @@ export const AddTask = () => {
   };
 
   const handleEdit = (task) => {
-    setTask(task.task);
-    setDate(new Date(task.daytime * 1000));
+    setTitle(task.title);
+    setDate((task.daytime));
     setStatus(task.status);
     setDescription(task.description);
     setIsEditing(true);
@@ -70,7 +70,7 @@ export const AddTask = () => {
   };
 
   const resetForm = () => {
-    setTask("");
+    setTitle("");
     setDate(new Date());
     setStatus("To do");
     setDescription("");
@@ -101,17 +101,17 @@ export const AddTask = () => {
         onClose={() => setIsModalOpen(false)}
       >
         <form className="add-form" onSubmit={(handleSubmit)}>
-          <label className="labels-form" htmlFor="task">
-            Task
+          <label className="labels-form" htmlFor="title">
+            Title Task
           </label>
           <input
             type="text"
-            id="task"
-            placeholder="Add Task"
-            value={task}
+            id="title"
+            placeholder="Add title"
+            value={title}
             minLength={3}
             maxLength={50}
-            onChange={(e) => setTask(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             required
           />
 
@@ -120,7 +120,7 @@ export const AddTask = () => {
           </label>
           <DatePicker
             selected={date}
-            onChange={(date) => setDate(date)} 
+            onChange={(newDate) => setDate(newDate)} 
             dateFormat="dd/MM/yyyy"
             timeFormat="HH:mm"
             timeIntervals={15}

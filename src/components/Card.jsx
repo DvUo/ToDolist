@@ -12,11 +12,11 @@ export const Card = ({ tasks, title, onEdit }) => {
             <li className="li-task" key={index}>
               <button className="btn btn-task" onClick={() => onEdit(task)}>
                 <p className="date">
-                  {new Date(task.daytime * 1000).toLocaleDateString()}
+                  {new Date(task.daytime).toLocaleDateString()}
                 </p>
                 <i className="fas fa-pencil-alt"></i>
                 {title === "Done" ? <i className="fas fa-star"></i> : ""}
-                {task.task}
+                {task.title}
               </button>
             </li>
           ))
