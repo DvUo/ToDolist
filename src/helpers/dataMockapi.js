@@ -1,5 +1,5 @@
 // helper/api.js
-const API_URL = 'http://127.0.0.1:8000/api/tasks';
+const API_URL = 'https://classic-jerrine-universidad-autonoma-a8d37108.koyeb.app/tasks';
 
 
 export const getTasks = async () => {
